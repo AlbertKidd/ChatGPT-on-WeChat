@@ -35,13 +35,13 @@ export class ChatGPTBot {
   chatgptTriggerKeyword: string = Config.chatgptTriggerKeyword;
 
   // ChatGPT error response
-  chatgptErrorMessage: string = "🤖️：ChatGPT摆烂了，请稍后再试～";
+  chatgptErrorMessage: string = "🥑：出了点小故障，请稍后再试";
 
   // ChatGPT model configuration
   // please refer to the OpenAI API doc: https://beta.openai.com/docs/api-reference/introduction
   chatgptModelConfig: object = {
     // this model field is required
-    model: "gpt-3.5-turbo",
+    model: process.env.OPENAI_MODEL,
     // add your ChatGPT model parameters below
     temperature: 0.8,
     // max_tokens: 2000,
@@ -77,6 +77,7 @@ export class ChatGPTBot {
       this.openaiAccountConfig = new Configuration({
         organization: Config.openaiOrganizationID,
         apiKey: Config.openaiApiKey,
+        basePath: process.env.OPENAI_BASE_URL
       });
       // OpenAI API instance
       this.openaiApiInstance = new OpenAIApi(this.openaiAccountConfig);
